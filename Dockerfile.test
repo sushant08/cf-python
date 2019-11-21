@@ -9,7 +9,8 @@ COPY testCaseApp.py /test
 RUN apt-get update \
   && apt-get install python  -y \
   && apt-get install -y python-pip \
-  && pip install Flask
-  && pip install jinja2
+  && pip install Flask \
+  && pip install jinja2 \
   && pip install markupsafe
+
 WORKDIR /test
