@@ -1,6 +1,8 @@
 version: "1.0"
 stages:
   - "clone"
+  - "testimage"
+  - "test"
   - "build"
   - "integration"
   - "push"
@@ -11,6 +13,20 @@ steps:
     repo: "sushant08/cf-python"
     revision: "${{CF_BRANCH}}"
     stage: "clone"
+  UnitTestDockerImage:
+    title: Building Test image
+    type: build
+    stage: 'testimage'
+    image_name: test-image
+    working_directory: /test
+    tag: 'stable'
+    dockerfile: Dockerfile.test
+  UnitTests:
+    title: Running Unit tests
+    stage: test
+    image: '${{UnitTestDockerImage}}'
+    commands:
+      - python test_basic.py
   build:
     title: "Building Docker Image"
     type: "build"

@@ -3,10 +3,10 @@ FROM ubuntu:latest
 COPY cf-flask.py .
 
 RUN apt-get update \
-  && apt-get install python3  -y \
-  && apt-get install -y python3-pip \
-  && pip3 install Flask
+  && apt-get install python  -y \
+  && apt-get install -y python-pip \
+  && pip install Flask
 
 EXPOSE 5000
-ENTRYPOINT ['python3','cf-flask.py']
+ENTRYPOINT ['python','cf-flask.py']
 

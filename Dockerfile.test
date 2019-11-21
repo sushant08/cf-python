@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+
+RUN mkdir /test
+
+COPY cf-flask.py /test
+COPY test_basic.py /test
+CPPY testCaseApp.py /test
+
+RUN apt-get update \
+  && apt-get install python  -y \
+  && apt-get install -y python-pip \
+  && pip install Flask
+  && pip install jinja2
+  && pip install markupsafe
+WORKDIR /test
