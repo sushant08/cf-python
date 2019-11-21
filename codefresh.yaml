@@ -18,7 +18,7 @@ steps:
     type: build
     stage: 'testimage'
     image_name: test-image
-    tag: 'stable'
+    tag: 'master'
     dockerfile: Dockerfile.test
   UnitTests:
     title: Running Unit tests
