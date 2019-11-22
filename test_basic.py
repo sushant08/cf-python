@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import unittest
-from testCaseApp import app
+from app import app
 from flask import Flask, url_for
 
 class FlaskBookshelfTests(unittest.TestCase): 

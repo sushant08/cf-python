@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-COPY cf-flask.py .
+COPY app.py .
 
 RUN apt-get update \
   && apt-get install python  -y \
@@ -8,5 +8,5 @@ RUN apt-get update \
   && pip install Flask
 
 EXPOSE 5000
-ENTRYPOINT ['python','cf-flask.py']
+ENTRYPOINT ['python','app.py']
 

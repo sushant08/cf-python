@@ -2,9 +2,8 @@ FROM ubuntu:latest
 
 RUN mkdir /test
 
-COPY cf-flask.py /test
+COPY app.py /test
 COPY test_basic.py /test
-COPY testCaseApp.py /test
 
 RUN apt-get update \
   && apt-get install python  -y \
