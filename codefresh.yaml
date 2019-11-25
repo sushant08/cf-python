@@ -83,4 +83,4 @@ steps:
       branch:
         only:
           - master
-  stage: "deploy"
+    stage: "deploy"
