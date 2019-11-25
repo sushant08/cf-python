@@ -75,7 +75,7 @@ steps:
   deploy_ecs:
     commands:
       - cfecs-update --image-name sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test python
-  *     environment:
+    environment:
       - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
       - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
     when:
