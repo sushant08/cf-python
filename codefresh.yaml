@@ -6,6 +6,7 @@ stages:
   - "build"
   - "integration"
   - "push"
+  - "deploy"
 steps:
   main_clone:
     type: "git-clone"
@@ -70,3 +71,15 @@ steps:
           - "${{CF_BRANCH_TAG_NORMALIZED}}"
           - "${{CF_REVISION}}"
     stage: "push"
+  
+  deploy_ecs:
+    commands:
+      - cfecs-update --image-name sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test python
+  *     environment:
+      - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
+      - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
+    when:
+      branch:
+        only:
+          - master
+  stage: deploy
