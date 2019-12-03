@@ -1,9 +1,16 @@
 from flask import Flask, url_for
 app = Flask(__name__)
 
+
+version = open("version", "r")
+
 @app.route('/')
 def api_root():
     return 'Welcome'
+
+@app.route('/version')
+def api_version():
+    return 'Version is ' + version.read()
 
 @app.route('/articles')
 def api_articles():
