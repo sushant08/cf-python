@@ -20,12 +20,10 @@ steps:
     image: alpine
     stage: 'tag-test'
     commands:
-      - echo $CF_BUILD_ID
-      - echo $CF_BRANCH_TAG_NORMALIZED 
       - echo $CF_REVISION
-      - echo $CF_RELEASE_TAG
-      - echo $CF_BRANCH
-      - "cf_export CF_BRANCH"
+      - echo $CF_REVISION > ${{CF_VOLUME_PATH}}/version
+      - cat ${{CF_VOLUME_PATH}}/version
+      - ls -l ${{CF_VOLUME_PATH}}
   UnitTestDockerImage:
     title: Building Test image
     type: build
