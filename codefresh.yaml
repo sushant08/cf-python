@@ -30,6 +30,8 @@ steps:
       - echo $CF_BUILD_ID
       - echo $CF_BRANCH_TAG_NORMALIZED 
       - echo $CF_REVISION
+      - echo $CF_RELEASE_TAG
+      - "cf_export CF_RELEASE_TAG"
   UnitTests:
     title: Running Unit tests
     stage: test
