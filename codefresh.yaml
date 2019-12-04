@@ -1,7 +1,7 @@
 version: "1.0"
 stages:
   - "clone"
-  - "tag-test"
+  - "versioning"
   - "testimage"
   - "test"
   - "build"
@@ -16,9 +16,9 @@ steps:
     revision: "${{CF_BRANCH}}"
     stage: "clone"
   Tagtest:
-    title: Variable example
+    title: pushing git sha to version
     image: alpine
-    stage: 'tag-test'
+    stage: 'versioning'
     commands:
       - echo $CF_REVISION
       - echo $CF_REVISION > ${{CF_VOLUME_PATH}}/cf-python/version
