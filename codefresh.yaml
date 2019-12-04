@@ -1,8 +1,8 @@
 version: "1.0"
 stages:
   - "clone"
-  - "testimage"
   - "tag-test"
+  - "testimage"
   - "test"
   - "build"
   - "integration"
@@ -15,13 +15,6 @@ steps:
     repo: "sushant08/cf-python"
     revision: "${{CF_BRANCH}}"
     stage: "clone"
-  UnitTestDockerImage:
-    title: Building Test image
-    type: build
-    stage: 'testimage'
-    image_name: test-image
-    tag: 'master'
-    dockerfile: Dockerfile.test
   Tagtest:
     title: Variable example
     image: alpine
@@ -30,8 +23,16 @@ steps:
       - echo $CF_BUILD_ID
       - echo $CF_BRANCH_TAG_NORMALIZED 
       - echo $CF_REVISION
-      - echo ${{CF_RELEASE_TAG}}
-      - "cf_export CF_RELEASE_TAG"
+      - echo $CF_RELEASE_TAG
+      - echo $CF_BRANCH
+      - "cf_export CF_BRANCH"
+  UnitTestDockerImage:
+    title: Building Test image
+    type: build
+    stage: 'testimage'
+    image_name: test-image
+    tag: 'master'
+    dockerfile: Dockerfile.test
   UnitTests:
     title: Running Unit tests
     stage: test
