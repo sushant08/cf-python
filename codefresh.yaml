@@ -21,7 +21,7 @@ steps:
     stage: 'tag-test'
     commands:
       - echo $CF_REVISION
-      - echo $CF_REVISION > ${{CF_VOLUME_PATH}}/version
+      - echo $CF_REVISION > ${{CF_VOLUME_PATH}}/cf-python/version
       - cat ${{CF_VOLUME_PATH}}/cf-python/version
       - ls -l ${{CF_VOLUME_PATH}}/cf-python
   UnitTestDockerImage:
