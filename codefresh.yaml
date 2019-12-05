@@ -76,7 +76,6 @@ steps:
         only:
           - "master"
     stage: "push"
-  
     push:
     title: "Pushing image to cfcr"
     type: "push"
@@ -86,8 +85,7 @@ steps:
     tags:
       - "${{CF_BRANCH_TAG_NORMALIZED}}"
       - "${{CF_REVISION}}"
-    stage: "push"
-  
+    stage: "push" 
   deploy_ecs:
     image: codefresh/cf-deploy-ecs 
     commands:
