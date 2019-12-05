@@ -52,40 +52,21 @@ steps:
         only:
           - "master"
     stage: "push"
-  parallel_push:
-    type: "parallel"
-    steps:
-      annotate_build:
-        title: "Annotating Build"
-        image: "${{build}}"
-        working_directory: "IMAGE_WORK_DIR"
-        commands:
-          - "echo Annotating Build..."
-        on_success:
-          metadata:
-            set:
-              - ${{build.imageId}}:
-                  - CF_QUALITY: true
-        on_error:
-          metadata:
-            set:
-              - ${{build.imageId}}:
-                  - CF_QUALITY: false
-      push:
-        title: "Pushing image to cfcr"
-        type: "push"
-        image_name: "sushant08/cf-python"
-        registry: "cfcr"
-        candidate: "${{build}}"
-        tags:
-          - "${{CF_BRANCH_TAG_NORMALIZED}}"
-          - "${{CF_REVISION}}"
+  push:
+    title: "Pushing image to cfcr"
+    type: "push"
+    image_name: "sushant08/cf-python"
+    registry: "cfcr"
+    candidate: "${{build}}"
+    tags:
+      - "${{CF_BRANCH_TAG_NORMALIZED}}"
+      - "${{CF_REVISION}}"
     stage: "push"
   
   deploy_ecs:
     image: codefresh/cf-deploy-ecs 
     commands:
-      - cfecs-update --image-name sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test codefresh-service
+      - cfecs-update --image-name sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test codefresh
     environment:
       - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
       - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
