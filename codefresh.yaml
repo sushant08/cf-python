@@ -42,7 +42,7 @@ steps:
   coverage:
     title: Running python code coverage using coverage
     stage: coverage
-    image: alpine
+    image: '${{UnitTestDockerImage}}'
     commands:
       - pip install coverage
       - pip install Flask
