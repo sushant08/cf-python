@@ -76,7 +76,7 @@ steps:
         only:
           - "master"
     stage: "push"
-    push:
+  push:
     title: "Pushing image to cfcr"
     type: "push"
     image_name: "test"
