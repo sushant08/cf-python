@@ -56,7 +56,7 @@ steps:
     title: "Pushing image to cfcr"
     type: "push"
     image_name: "sushant08/cf-python"
-    registry: "cfcr"
+    registry: "test"
     candidate: "${{build}}"
     tags:
       - "${{CF_BRANCH_TAG_NORMALIZED}}"
@@ -66,7 +66,7 @@ steps:
   deploy_ecs:
     image: codefresh/cf-deploy-ecs 
     commands:
-      - cfecs-update --image-name  r.cfcr.io/sushantsingh/sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test codefresh
+      - cfecs-update --image-name  sushant08/cf-python --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test codefresh
     environment:
       - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
       - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
