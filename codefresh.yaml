@@ -4,6 +4,8 @@ stages:
   - "versioning"
   - "testimage"
   - "test"
+  - "coverage"
+  - "reporting"
   - "build"
   - "integration"
   - "push"
@@ -37,6 +39,28 @@ steps:
     image: '${{UnitTestDockerImage}}'
     commands:
       - python test_basic.py
+  coverage:
+    title: Running python code coverage using coverage
+    stage: coverage
+    commands:
+      - pip install coverage
+      - pip install Flask
+      - cd ${{CF_VOLUME_PATH}}/cf-python
+      - coverage run app.py
+      - coverage report app.py > allure-results
+  reporting_step:
+    title: Generate test reporting
+    image: codefresh/cf-docker-test-reporting
+    working_directory: '${{CF_VOLUME_PATH}}/'
+    environment:
+      - BUCKET_NAME=kops08
+      - CF_STORAGE_INTEGRATION=aws
+      - REPORT_DIR.0=coverage
+      - REPORT_INDEX_FILE.0=lcov-report/index.html
+      - REPORT_TYPE.0=coverage
+      - ALLURE_DIR.1=allure-results
+      - REPORT_TYPE.1=allure
+    stage: "reporting"
   build:
     title: "Building Docker Image"
     type: "build"
@@ -52,7 +76,8 @@ steps:
         only:
           - "master"
     stage: "push"
-  push:
+  
+    push:
     title: "Pushing image to cfcr"
     type: "push"
     image_name: "test"
