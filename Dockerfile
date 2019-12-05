@@ -11,5 +11,4 @@ RUN apt-get update \
 WORKDIR .
 
 EXPOSE 5000
-ENTRYPOINT ['python','app.py']
-
+ENTRYPOINT ["python", "app.py"]
