@@ -42,6 +42,7 @@ steps:
   coverage:
     title: Running python code coverage using coverage
     stage: coverage
+    image: alpine
     commands:
       - pip install coverage
       - pip install Flask
