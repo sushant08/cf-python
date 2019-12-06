@@ -4,6 +4,7 @@ RUN mkdir /test
 
 COPY app.py /test
 COPY test_basic.py /test
+COPY coverage.sh /test
 
 RUN apt-get update \
   && apt-get install python  -y \
