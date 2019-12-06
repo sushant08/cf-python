@@ -44,8 +44,7 @@ steps:
     stage: coverage
     image: '${{UnitTestDockerImage}}'
     commands:
-      - py.test test_basic.py
-      - py.test --help
+      - py.test test_basic.py ${{CF_VOLUME_PATH}}/allure-results
   reporting_step:
     title: Generate test reporting
     image: codefresh/cf-docker-test-reporting
