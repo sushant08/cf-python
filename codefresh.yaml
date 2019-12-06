@@ -52,7 +52,7 @@ steps:
     working_directory: '${{CF_VOLUME_PATH}}/'
     environment:
       - BUCKET_NAME=kops08
-      - CF_STORAGE_INTEGRATION=aws
+      - CF_STORAGE_INTEGRATION=amazon
       - REPORT_DIR.0=coverage
       - REPORT_INDEX_FILE.0=lcov-report/index.html
       - REPORT_TYPE.0=coverage
