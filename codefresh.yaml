@@ -4,7 +4,6 @@ stages:
   - "versioning"
   - "testimage"
   - "test"
-  - "coverage"
   - "reporting"
   - "build"
   - "integration"
@@ -39,11 +38,6 @@ steps:
     image: '${{UnitTestDockerImage}}'
     commands:
       - python test_basic.py
-  coverage:
-    title: Running python code coverage using coverage
-    stage: coverage
-    image: '${{UnitTestDockerImage}}'
-    commands:
       - py.test test_basic.py --alluredir ${{CF_VOLUME_PATH}}/allure-results
   reporting_step:
     title: Generate test reporting
