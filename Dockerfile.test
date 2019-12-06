@@ -12,6 +12,7 @@ RUN apt-get update \
   && pip install Flask \
   && pip install jinja2 \
   && pip install markupsafe \
-  && apt-get install python-pytest -y 
+  && apt-get install python-pytest -y \
+  && pip install pytest-allure-adaptor
 
 WORKDIR /test
