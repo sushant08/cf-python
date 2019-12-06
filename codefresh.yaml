@@ -49,7 +49,7 @@ steps:
   reporting_step:
     title: Generate test reporting
     image: codefresh/cf-docker-test-reporting
-    working_directory: '${{CF_VOLUME_PATH}}/'
+    working_directory: '${{CF_VOLUME_PATH}}/cf-python'
     environment:
       - BUCKET_NAME=kops08
       - CF_STORAGE_INTEGRATION=amazon
