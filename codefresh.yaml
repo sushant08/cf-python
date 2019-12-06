@@ -44,12 +44,11 @@ steps:
     stage: coverage
     image: '${{UnitTestDockerImage}}'
     commands:
-      - export CF_VOLUME_PATH=${{CF_VOLUME_PATH}}
-      - sh coverage.sh
+      - py.test test_basic.py --alluredir ${{CF_VOLUME_PATH}}/allure-results
   reporting_step:
     title: Generate test reporting
     image: codefresh/cf-docker-test-reporting
-    working_directory: '${{CF_VOLUME_PATH}}/cf-python'
+    working_directory: '${{CF_VOLUME_PATH}}'
     environment:
       - BUCKET_NAME=kops08
       - CF_STORAGE_INTEGRATION=amazon
