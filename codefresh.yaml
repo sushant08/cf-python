@@ -72,15 +72,17 @@ steps:
       - "${{CF_BRANCH_TAG_NORMALIZED}}"
       - "${{CF_REVISION}}"
     stage: "push" 
-  deploy_ecs:
-    image: codefresh/cf-deploy-ecs 
-    commands:
-      - cfecs-update --image-name  833087016060.dkr.ecr.us-east-1.amazonaws.com/test --image-tag '${{CF_BRANCH_TAG_NORMALIZED}}' us-east-1 test codefresh
+  StoreChart:
+    title: Storing Helm chart
+    stage: deploy
+    image: 'codefresh/cfstep-helm:2.12.3'
     environment:
-      - AWS_ACCESS_KEY_ID=${{AWS_ACCESS_KEY_ID}}
-      - AWS_SECRET_ACCESS_KEY=${{AWS_SECRET_ACCESS_KEY}}
-    when:
-      branch:
-        only:
-          - master
-    stage: "deploy"
+      - ACTION=push
+      - CHART_REF=charts/helm-example    
+  DeployMyChart:
+    image: 'codefresh/cfstep-helm:2.12.3'
+    title: Deploying Helm chart
+    stage: deploy
+    environment:
+      - CHART_REF=charts/helm-example
+      - RELEASE_NAME=my-go-chart-prod
