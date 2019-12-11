@@ -78,7 +78,8 @@ steps:
     image: 'codefresh/cfstep-helm:2.12.3'
     environment:
       - ACTION=push
-      - CHART_REF=charts/helm-example    
+      - CHART_REF=charts/helm-example
+      - CHART_REPO_URL=s3://codefresh-test/charts
   DeployMyChart:
     image: 'codefresh/cfstep-helm:2.12.3'
     title: Deploying Helm chart
