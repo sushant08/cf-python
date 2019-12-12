@@ -79,6 +79,6 @@ steps:
     working_directory: cf-python/
     environment:
       - ACTION=push
-      - CHART_REF=${{CF_VOLUME_PATH}}/cf-python/helm_cf
+      - CHART_REF=${{CF_VOLUME_PATH}}/cf-python/python
       - CHART_REPO_URL=s3://codefresh-test/codefresh
       - RELEASE_NAME=first-chart
