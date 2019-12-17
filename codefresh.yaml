@@ -81,4 +81,4 @@ steps:
     environment:
       - CHART_REF=${{CF_VOLUME_PATH}}/cf-python/python
       - RELEASE_NAME=first-chart
-      - KUBE_CONTEXT=my-demo-k8s-cluster
+      - KUBE_CONTEXT=k8s-sushant
