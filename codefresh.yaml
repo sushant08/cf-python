@@ -8,7 +8,8 @@ stages:
   - "build"
   - "integration"
   - "push"
-  - "deploy"
+  - "helmpush"
+  - "helmdeploy"
 steps:
   main_clone:
     type: "git-clone"
@@ -37,7 +38,6 @@ steps:
     stage: test
     image: '${{UnitTestDockerImage}}'
     commands:
-      - python test_basic.py
       - py.test test_basic.py --alluredir ${{CF_VOLUME_PATH}}/allure-results
   reporting_step:
     title: Generate test reporting
@@ -54,14 +54,6 @@ steps:
     tag: "${{CF_BRANCH_TAG_NORMALIZED}}"
     dockerfile: "Dockerfile"
     stage: "build"
-  approval_for_push:
-    type: "pending-approval"
-    title: "Should we run push"
-    when:
-      branch:
-        only:
-          - "master"
-    stage: "push"
   push:
     title: "Pushing image to cfcr"
     type: "push"
@@ -74,7 +66,7 @@ steps:
     stage: "push" 
   StoreChart:
     title: Storing Helm chart
-    stage: deploy
+    stage: helmpush
     image: 'codefresh/cfstep-helm:2.12.3'
     working_directory: cf-python/
     environment:
@@ -82,3 +74,11 @@ steps:
       - CHART_REF=${{CF_VOLUME_PATH}}/cf-python/python
       - CHART_REPO_URL=s3://codefresh-test/codefresh
       - RELEASE_NAME=first-chart
+  DeployChart:
+    image: 'codefresh/cfstep-helm:2.12.3'
+    title: Deploying Helm chart
+    stage: helmdeploy
+    environment:
+      - CHART_REF=${{CF_VOLUME_PATH}}/cf-python/python
+      - RELEASE_NAME=first-chart
+      - KUBE_CONTEXT=my-demo-k8s-cluster
