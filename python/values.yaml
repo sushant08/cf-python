@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: 833087016060.dkr.ecr.us-east-1.amazonaws.com/test:master
-  tag: latest
+  repository: 833087016060.dkr.ecr.us-east-1.amazonaws.com/test
+  tag: master
   pullPolicy: IfNotPresent
 
 nameOverride: ""
